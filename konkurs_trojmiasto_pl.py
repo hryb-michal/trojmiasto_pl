@@ -9,48 +9,63 @@ import urllib2
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
+#from datetime import datetime
 
-#driver = webdriver.Firefox()
+#TODO measure application time
 
-main_page = "https://konkursy.trojmiasto.pl/"
-page = urllib2.urlopen(main_page)
-soup = BeautifulSoup(page, 'html.parser')
+main_address = "https://konkursy.trojmiasto.pl/"
+main_page = urllib2.urlopen(main_address)
+soup = BeautifulSoup(main_page, 'html.parser')
 
 contests = soup.find_all('li', attrs={'class':' item'})
-contests.append(soup.find('li', attrs={'class': ' first_in_row item'}))
-for contest in contests:
-    #print contest.text
-    print contest.attrs['onclick'][17:-1]
+contests.extend(soup.find_all('li', attrs={'class':' first_in_row item'}))
 
+number_of_contests = len(contests)
+
+if (number_of_contests < 1):
+    print "no contests available"
+else:
+    print (number_of_contests, ' contest(s) available')
+    for contest in contests:
+        print contest.attrs['onclick'][17:-1]
+
+''' #TODO only when there's at least 1 contest
+contest_address = contests[-1].attrs['onclick'][17:-1]  #TODO add possibility of contest choice
+contest_page = urllib2.urlopen(contest_address)
+contest_soup = BeautifulSoup(contest_page, 'html.parser')
+
+
+question_box = contest_soup.find('div', attrs={'class':'question'})
+question = question_box.find('p', attrs={'class':'frame'})
+print(question.text)
 '''
-driver.get("https://rozrywka.trojmiasto.pl/Przemek-Dyakowski-Nie-jestem-zapiekly-na-cokolwiek-n129478.html")
-elem = driver.find
-#elem = driver.find_element_by_name("q")
+
+#TODO check time of the contest
+#current_time = datetime.now().time()
+
+#time_message_box = contest_soup.find('div', attrs={'class': 'message'})
+#time_message.find('h2').text
+
+#for word in 
+
+#time_message_text = time_message_box.fi
+
+
+#TODO check if the contest is open
+''' #TODO only when contest is online
+driver = webdriver.Firefox( )
+driver.get(contest_address)
+elem = driver.find_element_by_name("answer")
 elem.clear()
-elem.send_keys("pycon")
+elem.send_keys("33")
+elem2 = driver.find_element_by_name("name")
+elem2.clear()
+elem2.send_keys(repr("Michał")) #TODO send polish letters
+elem3 = driver.find_element_by_name("rodo[pytania][11]")
+elem3.click()
+'''
+'''
 elem.submit()
 '''
-#print driver.page_source
-
 #driver.close()
-
-#search_form = browser.find_element_by_id('search_form_input_homepage')
-#results = browser.find_elements_by_class_name('result_title')
-
-'''
-page = driver.get("https://rozrywka.trojmiasto.pl/Przemek-Dyakowski-Nie-jestem-zapiekly-na-cokolwiek-n129478.html")
-soup = BeautifulSoup(page, 'html.parser')
-name_box = soup.find("input", attrs={"type": "checkbox"})
-print name_box.text
-'''
-
-#question_box = soup.find('div', attrs={'class':'question'})
-#question = question_box.find('p', attrs={'class':'frame'})
-#question_text = question.text
-#print question_text
-
-
-
-#print(name_box)
-
 
