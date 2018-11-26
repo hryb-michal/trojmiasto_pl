@@ -45,8 +45,13 @@ for contest in upcoming_contests:
     print contest.attrs['onclick'][17:-1]
 
         
+#    current_contests_soup = soup.find('div', attrs={'class':'upcoming-contests'})
+#    current_contests = current_contests_soup.find_all('li', attrs={'class':' item'})
+#    current_contests.extend(current_contests_soup.find_all('li', attrs={'class':' first_in_row item'}))
+#    number_of_contests = len(current_contests)
+#possible to find all contests by id:actual (2 seperate divs) 
 
-''' #TODO only when there's at least 1 contest
+''' #TODO only when there's at least 1 open contest
 contest_address = contests[1].attrs['onclick'][17:-1]  #TODO add possibility of contest choice
 contest_page = urllib2.urlopen(contest_address)
 contest_soup = BeautifulSoup(contest_page, 'html.parser')
