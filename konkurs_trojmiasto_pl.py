@@ -20,10 +20,10 @@ while(no_contests):
     before = time.time()
     soup = BeautifulSoup(main_page, 'html.parser')  #time: ~0.2s
     after = time.time()
-    
-    contests = soup.find_all('li', attrs={'class':' item'})
-    contests.extend(soup.find_all('li', attrs={'class':' first_in_row item'}))
-    number_of_contests = len(contests)
+    upcoming_contests_soup = soup.find('div', attrs={'class':'upcoming-contests'})
+    upcoming_contests = upcoming_contests_soup.find_all('li', attrs={'class':' item'})
+    upcoming_contests.extend(upcoming_contests_soup.find_all('li', attrs={'class':' first_in_row item'}))
+    number_of_contests = len(upcoming_contests)
     
     if (number_of_contests < 1):
         print ("no contests available", time.localtime()[3:6])
@@ -34,19 +34,16 @@ while(no_contests):
     #print (after - before)
 
 print (number_of_contests, ' contest(s) available')
-for contest in contests:
-    contests_names = contest.find_all('p', attrs={'class':'name'})
-    for contest_name in contests_names:
-        print contest_name.text
+for contest in upcoming_contests:
+    contest_name = contest.find('p', attrs={'class':'name'})
+    contest_address = contest.attrs['onclick'][17:-1]  #TODO add possibility of contest choice
+    contest_page = urllib2.urlopen(contest_address)
+    contest_soup = BeautifulSoup(contest_page, 'html.parser')
+    time_message_box = contest_soup.find('div', attrs={'class': 'message'})
+    print contest_name.text
+    print time_message_box.find('h2').text
     print contest.attrs['onclick'][17:-1]
 
-if (len(contests) > 0):
-    for contest in contests:
-        contest_address = contest.attrs['onclick'][17:-1]  #TODO add possibility of contest choice
-        contest_page = urllib2.urlopen(contest_address)
-        contest_soup = BeautifulSoup(contest_page, 'html.parser')
-        time_message_box = contest_soup.find('div', attrs={'class': 'message'})
-        print time_message_box.find('h2').text
         
 
 ''' #TODO only when there's at least 1 contest
