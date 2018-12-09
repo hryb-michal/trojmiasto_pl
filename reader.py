@@ -7,7 +7,7 @@ Created on Sun Dec  9 18:59:44 2018
 """
 import csv
 
-def read_competitions(filename):
+def print_competitions(filename):
     with open(filename, 'r') as csv_file:
         reader = csv.reader(csv_file)
         for row in reader:
@@ -22,3 +22,12 @@ def in_file(filename, arg):
             if (row[1] == arg.encode('utf-8')): #check: if arg... in row
                 return True
         return False
+    
+def get_contests(filename):
+    with open(filename, 'r') as csv_file:
+        reader = csv.reader(csv_file)
+        for row in reader:
+            if (row[2] == 'yes'):
+                return row[3]
+            else:
+                return False

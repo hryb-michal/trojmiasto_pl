@@ -16,6 +16,9 @@ def participate(contest_address):
     driver = webdriver.Firefox()
     driver.get(contest_address)
     '''
+    #OLD VERSION OF INTERFACE BELOW
+    #TODO refactor code to meet new interface
+    
     elem = driver.find_element_by_name("answer")
     elem.clear()
     #elem.send_keys("33")
@@ -34,4 +37,4 @@ def participate(contest_address):
     checkbox2.click()
     elem.submit()
     '''
-    #driver.close() 
+    driver.close() 
