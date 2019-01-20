@@ -19,15 +19,25 @@ def in_file(filename, arg):
     with open(filename, 'r') as csv_file:
         reader = csv.reader(csv_file)
         for row in reader:
-            if (row[1] == arg.encode('utf-8')): #check: if arg... in row
-                return True
+            for elem in row:
+                if (elem == arg.encode('utf-8')):
+                    return True
         return False
     
-def get_contests(filename):
+def is_participating(filename):
     with open(filename, 'r') as csv_file:
         reader = csv.reader(csv_file)
         for row in reader:
             if (row[2] == 'yes'):
-                return row[3]
+                return True
+            else:
+                return False
+    
+def get_contests_address(filename):
+    with open(filename, 'r') as csv_file:
+        reader = csv.reader(csv_file)
+        for row in reader:
+            if (row[2] == 'yes'):
+                return row[3]   #return page address
             else:
                 return False

@@ -7,32 +7,64 @@ import time
 
 from browser import participate
 from monitor import monitor_page
+from monitor import read_time
 from reader import print_competitions
-from reader import get_contests
+from reader import get_contests_address
+from reader import is_participating
 
-#import csv
-#from datetime import datetime
 
 main_address = "https://konkursy.trojmiasto.pl/"
-filename = 'competitions.csv'
-open(filename,"w+")
+contests_filename = 'competitions.csv'
+open(contests_filename,"w+")
 
-monitor_page(main_address, filename)
-print_competitions(filename)
+participating = False
+while not(participating):
+    monitor_page(main_address, contests_filename)
+    participating = is_participating(contests_filename)
+    time.sleep(5)
+    
+print 'Participating...'
 
-target = False
-while not (target):
-    target = get_contests(filename)
+contest_address = get_contests_address(contests_filename)
+time_to_start = read_time(contest_address)
+current_time = time.localtime()
     
-    if (target):
-        participate(target)   
-    time.sleep(3)
+print time_to_start
+
+if (time_to_start == 15):
+    print  'Less than 15 minutes till the contest begins...'
+elif (time_to_start == -1):
+    print  'More than 12 hours till the contest begins, please run the program again later.'
+else:
+    print  'Less than ' + str(time_to_start) + ' hours till the contest begins, calculating exact time (it might take up to 1 hour)...'
     
+    new_time = read_time(contest_address)
+    while (new_time == time_to_start):
+        print 'sleeping'
+        time.sleep(28)
+        new_time = read_time(contest_address)
+        print 'read new time'
+
+    print 'different!'
+    current_time = time.localtime()
+    start_time = current_time[3:6]
     
-#TODO calculate time of the contest
-#current_time = datetime.now().time()
-    
-    
-    
-    
+    if (new_time == 15):
+        if (start_time[1] > 44):
+            start_time[0] += 1
+            start_time[1] += (15 - (60 - start_time[4]))
+            start_time[2] = 0
+        else:
+            start_time[1] += 15
+            start_time[2] = 0
+    else:
+            start_time[0] += time_to_start[3] - 1
+            start_time[2] = 0
+            
+    start_timestamp = (10000 * start_time[3]) + (100 * start_time[4]) + (start_time[5])
+    print 'Calculated, contest will take place at ' + str(start_timestamp)
+    participate(contest_address, start_time)
+
+print 'Thanks for participating :)'
+
     
