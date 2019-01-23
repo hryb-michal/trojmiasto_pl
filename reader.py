@@ -30,8 +30,7 @@ def is_participating(filename):
         for row in reader:
             if (row[2] == 'yes'):
                 return True
-            else:
-                return False
+        return False
     
 def get_contests_address(filename):
     with open(filename, 'r') as csv_file:
@@ -39,5 +38,4 @@ def get_contests_address(filename):
         for row in reader:
             if (row[2] == 'yes'):
                 return row[3]   #return page address
-            else:
-                return False
+        return False

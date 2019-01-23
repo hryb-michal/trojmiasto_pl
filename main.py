@@ -26,6 +26,7 @@ while not(participating):
 print 'Participating...'
 
 contest_address = get_contests_address(contests_filename)
+print str(contest_address)
 time_to_start = read_time(contest_address)
 current_time = time.localtime()
     
@@ -40,7 +41,7 @@ else:
     
     new_time = read_time(contest_address)
     while (new_time == time_to_start):
-        print 'sleeping'
+        print 'sleeping' + str(time.localtime()[3:6])
         time.sleep(28)
         new_time = read_time(contest_address)
         print 'read new time'
@@ -48,7 +49,7 @@ else:
     print 'different!'
     current_time = time.localtime()
     start_time = current_time[3:6]
-    
+    start_time = list(start_time)
     if (new_time == 15):
         if (start_time[1] > 44):
             start_time[0] += 1
@@ -58,10 +59,10 @@ else:
             start_time[1] += 15
             start_time[2] = 0
     else:
-            start_time[0] += time_to_start[3] - 1
+            start_time[0] += time_to_start - 1
             start_time[2] = 0
             
-    start_timestamp = (10000 * start_time[3]) + (100 * start_time[4]) + (start_time[5])
+    start_timestamp = (10000 * start_time[0]) + (100 * start_time[1]) + (start_time[2])
     print 'Calculated, contest will take place at ' + str(start_timestamp)
     participate(contest_address, start_time)
 
