@@ -14,11 +14,15 @@ def to_utf(string):
     return unicode(string, "utf-8", errors="ignore")
 
 def participate(contest_address, start_time):
+
+
+
     #options = Options()
     #options.headless = True    #TODO enable when program would be able to answer question on its own
     #driver = webdriver.Firefox(options=options)
     driver = webdriver.Firefox()
-    
+    driver.get(contest_address)
+
     current_time = time.localtime()
     wait_hours = start_time[0] - current_time.tm_hour
     wait_min = start_time[1] - current_time.tm_min
@@ -27,6 +31,13 @@ def participate(contest_address, start_time):
     print 'going to sleep for ' + str(time_delta) + ' seconds...'
     time.sleep(time_delta + 1)
     
+    contest_page = urllib2.urlopen(contest_address)   #time: ~0.4s
+    contest_soup = BeautifulSoup(contest_page, 'html.parser')
+    question_box = contest_soup.find('h2', attrs={'class':'title'})
+    question = question_box.text
+    print question
+
+    #driver = webdriver.Firefox()
     driver.get(contest_address)
     
     elem = driver.find_element_by_name("answer")

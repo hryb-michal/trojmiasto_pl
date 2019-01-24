@@ -35,11 +35,13 @@ def read_time(page_address):
     time_box_text = time_box.text
     
     if (to_utf('mniej')) in time_box_text:
+        if (to_utf('godzinę')) in time_box_text:
+            return 1
         if (to_utf('godzin')) in time_box_text:
             s = ""
             for t in time_box_text[10:-8]:
                 s += t
-            return s
+            return int(s)
         else:
             return 15
     else:

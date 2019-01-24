@@ -53,7 +53,7 @@ else:
     if (new_time == 15):
         if (start_time[1] > 44):
             start_time[0] += 1
-            start_time[1] += (15 - (60 - start_time[4]))
+            start_time[1] += (15 - (60 - start_time[1]))
             start_time[2] = 0
         else:
             start_time[1] += 15
