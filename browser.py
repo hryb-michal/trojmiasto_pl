@@ -5,6 +5,8 @@ Created on Sun Dec  9 13:58:22 2018
 
 @author: hrymimakos
 """
+import urllib2
+from bs4 import BeautifulSoup
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
