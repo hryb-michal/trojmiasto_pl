@@ -11,6 +11,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
+from answering import answer
 
 def to_utf(string):
     return unicode(string, "utf-8", errors="ignore")
@@ -41,10 +42,11 @@ def participate(contest_address, start_time):
 
     #driver = webdriver.Firefox()
     driver.get(contest_address)
-    
+
     elem = driver.find_element_by_name("answer")
     elem.clear()
-    elem.send_keys("33")
+    ans = answer(question)
+    elem.send_keys(ans)
     name_box = driver.find_element_by_name("name")
     name_box.clear()
     name_box.send_keys(to_utf("Grzegorz"))
