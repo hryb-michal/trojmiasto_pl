@@ -4,7 +4,7 @@ Spyder Editor
 This is a temporary script file.
 """
 import time
-
+import sys
 from browser import participate
 from monitor import monitor_page
 from monitor import read_time
@@ -34,6 +34,9 @@ print time_to_start
 
 if (time_to_start == 15):
     print  'Less than 15 minutes till the contest begins...'
+    #current_time = time.localtime()
+    #start_time = current_time[3:6]
+    #participate(contest_address, start_time)
 elif (time_to_start == -1):
     print  'More than 12 hours till the contest begins, please run the program again later.'
 else:
