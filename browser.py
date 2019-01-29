@@ -16,9 +16,13 @@ from answering import answer
 def to_utf(string):
     return unicode(string, "utf-8", errors="ignore")
 
+
+def fill_box(_driver, box_name, text):
+    name_box = _driver.find_element_by_name(box_name)
+    name_box.clear()
+    name_box.send_keys(to_utf(text))
+
 def participate(contest_address, start_time):
-
-
 
     #options = Options()
     #options.headless = True    #TODO enable when program would be able to answer question on its own
@@ -43,31 +47,30 @@ def participate(contest_address, start_time):
     #driver = webdriver.Firefox()
     driver.get(contest_address)
 
+
+    ans = answer(question)
+    #fill_box(driver, "answer", ans)
+    #fill_box(driver, "name", "Grzegorz")
     elem = driver.find_element_by_name("answer")
     elem.clear()
-    ans = answer(question)
     elem.send_keys(ans)
     name_box = driver.find_element_by_name("name")
     name_box.clear()
-    name_box.send_keys(to_utf("Grzegorz"))
+    name_box.send_keys(to_utf("Grzęgorz"))
     surname_box = driver.find_element_by_name("surname")
     surname_box.clear()
     surname = to_utf("Brzęczyszczykiewicz")
     surname_box.send_keys(surname)
     mail_box = driver.find_element_by_name("email")
     mail_box.clear()
-    mail_box.send_keys(to_utf("abc@niepodam.pl"))
+    mail_box.send_keys(to_utf("burzumbura@gmail.com"))
     checkbox1 = driver.find_element_by_name("rodo[pytania][11]")
     checkbox1.click()
     checkbox2 = driver.find_element_by_name("rodo[pytania][14]")
-    checkbox2.click()
+    #checkbox2.click()
     #elem.submit()
 
     print time.localtime()
     #driver.close() 
-
-
-#def participate(contest_address):
-    
     
     

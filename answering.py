@@ -13,18 +13,20 @@ def search(dictionary, question):
         if (re.search(key, question, re.IGNORECASE)):
             return dictionary[key]
 
-pairs = {'kontrabas' : 'Adam Żuchowski',
-            'pian' : 'Dominik Kisiel',  #fortepian, pianista
-            'perkusja' : 'Adam Golicki',
-            'saksofon' : 'Wojciech Bergiel',
-            'kompo' : 'Wojciech Bergiel',   #kompozycje, skomponował
-            'Wojciech Bergiel' : 'saksofon tenorowy',
-            'Adam Żuchowski' : 'kontrabas',
-            'Dominik Kisiel' : 'fortepian',
-            'Adam Golicki' : 'perkusja'} 
+pairs = {'album' : 'Junior',
+            'płyta' : 'Junior',
+            '2017' : 'Junior',
+            'nazwisk' : 'Zagrodni',
+            'kompo' : 'Wojciech Bergiel',
+            'gatun' : 'synthwave',
+            'nagrod' : 'WARTO',
+            'festiw' : 'Open\'er',
+            'singiel' : 'Retman',
+            'perkus' : 'Marcin Mrówka',
+            'Marcin Mrówka' : 'perkusja'} 
 
 
 def answer(question):
     return to_utfs(search(pairs, question))
 
-#rint to_utfs(search(pairs, question))
+#print to_utfs(search(pairs, question))
