@@ -15,9 +15,13 @@ def monitor_page(main_page_address, filename):
     soup = BeautifulSoup(main_page, 'html.parser')  #time: ~0.2s
     
     awaiting = soup.find('div', attrs={'class':'BoxWrap CompetitionSection CompetitionSection--future'})
-    
+    while(not awaiting):
+        print 'no contests available, sleep for 50s', time.localtime()[3:6]
+        time.sleep(50)
+        main_page = urllib2.urlopen(main_page_address)   #time: ~0.4s
+        soup = BeautifulSoup(main_page, 'html.parser')  #time: ~0.2s
+        awaiting = soup.find('div', attrs={'class':'BoxWrap CompetitionSection CompetitionSection--future'})
     future_contests = awaiting.find_all('div', attrs={'class':'CompetitionBox__content'})
-    #future_contests = soup.find_all('div', attrs={'class':'CompetitionBox__content'}) #TODO includes inactive contests for testing
     
     for contest in future_contests:
         contest_name = contest.find('h3').text.strip()
