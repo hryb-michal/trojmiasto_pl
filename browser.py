@@ -47,13 +47,12 @@ def participate(contest_address, start_time):
     #driver = webdriver.Firefox()
     driver.get(contest_address)
 
-
     ans = answer(question)
     #fill_box(driver, "answer", ans)
     #fill_box(driver, "name", "Grzegorz")
     elem = driver.find_element_by_name("answer")
     elem.clear()
-    elem.send_keys(ans)
+    elem.send_keys(to_utf(ans))
     name_box = driver.find_element_by_name("name")
     name_box.clear()
     name_box.send_keys(to_utf("Grzęgorz"))

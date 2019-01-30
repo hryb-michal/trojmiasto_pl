@@ -10,23 +10,18 @@ def to_utfs(string):
 
 def search(dictionary, question):
     for key in dictionary:
-        if (re.search(key, question, re.IGNORECASE)):
+        if (re.search(to_utfs(key), question, re.IGNORECASE)):
             return dictionary[key]
 
-pairs = {'album' : 'Junior',
-            'płyta' : 'Junior',
-            '2017' : 'Junior',
-            'nazwisk' : 'Zagrodni',
-            'kompo' : 'Wojciech Bergiel',
-            'gatun' : 'synthwave',
-            'nagrod' : 'WARTO',
-            'festiw' : 'Open\'er',
-            'singiel' : 'Retman',
-            'perkus' : 'Marcin Mrówka',
-            'Marcin Mrówka' : 'perkusja'} 
+pairs = {'przekład' : ' Barbara Grzegorzewska ł',
+            'które' : 'drugie',
+            'tremiszewski' : 'limo',
+            'limo' : 'tremiszewski',
+            'ad hoc' : 'próchniewicz',
+            'próchniewicz' : 'ad hoc'} 
 
 
 def answer(question):
-    return to_utfs(search(pairs, question))
+    return search(pairs, question)
 
 #print to_utfs(search(pairs, question))

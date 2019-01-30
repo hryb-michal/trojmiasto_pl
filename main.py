@@ -34,9 +34,9 @@ print time_to_start
 
 if (time_to_start == 15):
     print  'Less than 15 minutes till the contest begins...'
+    start_time = map(int, sys.argv[1:])
     #current_time = time.localtime()
-    #start_time = current_time[3:6]
-    #participate(contest_address, start_time)
+    participate(contest_address, start_time)
 elif (time_to_start == -1):
     print  'More than 12 hours till the contest begins, please run the program again later.'
 else:
@@ -56,7 +56,7 @@ else:
     if (new_time == 15):
         if (start_time[1] > 44):
             start_time[0] += 1
-            start_time[1] += (15 - (60 - start_time[1]))
+            start_time[1] = (15 - (60 - start_time[1]))
             start_time[2] = 0
         else:
             start_time[1] += 15

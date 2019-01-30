@@ -18,7 +18,7 @@ def fill_box(_driver, box_name, text):
     name_box.send_keys(text)
 
 
-contest_address = 'https://konkursy.trojmiasto.pl/konkurs-14411/'
+contest_address = 'https://konkursy.trojmiasto.pl/konkurs-14417/'
 
 driver = webdriver.Firefox()
 driver.get(contest_address)
@@ -30,11 +30,12 @@ question = question_box.text
 print question
 
 ans = answer(question)
+print 'answer in main ', ans
 #fill_box(driver, "answer", ans)
 #fill_box(driver, "name", to_utf("Grzegorz"))
 elem = driver.find_element_by_name("answer")
 elem.clear()
-elem.send_keys(ans)
+elem.send_keys(to_utf(ans))
 name_box = driver.find_element_by_name("name")
 name_box.clear()
 name_box.send_keys(to_utf("Grzegorz"))
