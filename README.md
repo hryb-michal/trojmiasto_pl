@@ -10,5 +10,4 @@ Web parser that is supposed to win prizes at konkursy.trojmiasto.pl
 TODO:
 - add .csv file with different participants data
 - fully refactor code to meet new interface
-- calculate time when the contest begins
 - use TensorFlow to automate question responses
